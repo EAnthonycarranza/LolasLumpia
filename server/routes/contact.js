@@ -1,10 +1,21 @@
 const router = require('express').Router();
+const axios = require('axios');
 const Contact = require('../models/Contact');
 const { sendContactEmails } = require('../utils/email');
 
 router.post('/', async (req, res) => {
   try {
-    const contactData = req.body;
+    const { captchaToken, ...contactData } = req.body;
+
+    // Verify reCAPTCHA
+    const recaptchaRes = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=6LeIN6UsAAAAAFrackdk2_k4P4XB1TmqrwcXKYqY&response=${captchaToken}`
+    );
+
+    if (!recaptchaRes.data.success) {
+      return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+    }
+
     const message = await Contact.create(contactData);
     
     // Send emails

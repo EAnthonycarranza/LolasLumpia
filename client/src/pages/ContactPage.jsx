@@ -1,27 +1,53 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSettings } from '../context/SettingsContext';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function ContactPage() {
   const { settings } = useSettings();
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', orderType: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', orderType: '', message: '', address: '' });
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const addressInputRef = useRef(null);
+  const autocompleteRef = useRef(null);
+
+  useEffect(() => {
+    if (form.orderType === 'delivery' && addressInputRef.current && !autocompleteRef.current) {
+      autocompleteRef.current = new window.google.maps.places.Autocomplete(addressInputRef.current, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' }
+      });
+
+      autocompleteRef.current.addListener('place_changed', () => {
+        const place = autocompleteRef.current.getPlace();
+        if (place.formatted_address) {
+          setForm(prev => ({ ...prev, address: place.formatted_address }));
+        }
+      });
+    }
+  }, [form.orderType]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!captchaToken) {
+      alert('Please verify you are not a robot');
+      return;
+    }
     setLoading(true);
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify({ ...form, captchaToken })
       });
       const data = await res.json();
       if (data.success) {
         setStatus('Thank you! Lola will get back to you soon.');
-        setForm({ name: '', email: '', phone: '', subject: '', orderType: '', message: '' });
+        setForm({ name: '', email: '', phone: '', subject: '', orderType: '', message: '', address: '' });
+        setCaptchaToken(null);
+        autocompleteRef.current = null;
       } else {
-        setStatus('Something went wrong. Please try again.');
+        setStatus(data.error || 'Something went wrong. Please try again.');
       }
     } catch {
       setStatus('Something went wrong. Please try again.');
@@ -74,7 +100,10 @@ export default function ContactPage() {
                   </div>
                   <div className="form-group">
                     <label>Inquiry Type</label>
-                    <select value={form.orderType} onChange={e => setForm({ ...form, orderType: e.target.value })}>
+                    <select value={form.orderType} onChange={e => {
+                      setForm({ ...form, orderType: e.target.value });
+                      autocompleteRef.current = null;
+                    }}>
                       <option value="">General Inquiry</option>
                       <option value="pickup">Pick-Up Order</option>
                       <option value="delivery">Delivery Request</option>
@@ -83,6 +112,20 @@ export default function ContactPage() {
                     </select>
                   </div>
                 </div>
+
+                {form.orderType === 'delivery' && (
+                  <div className="form-group">
+                    <label>Delivery Address</label>
+                    <input 
+                      ref={addressInputRef}
+                      type="text" 
+                      placeholder="123 Lumpia St, San Antonio, TX" 
+                      required
+                      value={form.address}
+                      onChange={e => setForm({ ...form, address: e.target.value })} 
+                    />
+                  </div>
+                )}
 
                 <div className="form-group">
                   <label>Subject</label>
@@ -94,6 +137,13 @@ export default function ContactPage() {
                   <label>Your Message</label>
                   <textarea placeholder="Tell Lola what's on your mind..." rows="5" required value={form.message}
                     onChange={e => setForm({ ...form, message: e.target.value })} />
+                </div>
+
+                <div style={{ margin: '15px 0', transform: 'scale(0.85)', transformOrigin: '0 0' }}>
+                  <ReCAPTCHA
+                    sitekey="6LeIN6UsAAAAAEhMCahknmbAZPKtdT3JiqBuzOQU"
+                    onChange={(token) => setCaptchaToken(token)}
+                  />
                 </div>
 
                 <button type="submit" className="btn-primary btn-block" disabled={loading}>

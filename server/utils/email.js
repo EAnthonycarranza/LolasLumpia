@@ -107,7 +107,9 @@ const sendContactEmails = async (contactData) => {
           <div style="${contentStyles}">
             <p style="margin-bottom: 10px;"><strong>Name:</strong> ${name}</p>
             <p style="margin-bottom: 10px;"><strong>Email:</strong> ${email}</p>
+            <p style="margin-bottom: 10px;"><strong>Phone:</strong> ${contactData.phone || 'N/A'}</p>
             <p style="margin-bottom: 10px;"><strong>Subject:</strong> ${subject}</p>
+            ${contactData.address ? `<p style="margin-bottom: 10px;"><strong>Address:</strong> ${contactData.address}</p>` : ''}
             <p style="margin-top: 20px;"><strong>Message:</strong></p>
             <div style="background: #faf7f2; padding: 20px; border-radius: 12px; border-left: 5px solid #d4af37; margin-top: 10px; font-style: italic; line-height: 1.6;">
               ${message}

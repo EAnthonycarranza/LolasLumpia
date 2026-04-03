@@ -1,10 +1,30 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function Cart() {
   const { cart, isOpen, setIsOpen, changeQty, removeFromCart, clearCart, totalPrice } = useCart();
   const [checkoutForm, setCheckoutForm] = useState(null);
   const [orderStatus, setOrderStatus] = useState('');
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const addressInputRef = useRef(null);
+  const autocompleteRef = useRef(null);
+
+  useEffect(() => {
+    if (checkoutForm && checkoutForm.orderType === 'delivery' && addressInputRef.current && !autocompleteRef.current) {
+      autocompleteRef.current = new window.google.maps.places.Autocomplete(addressInputRef.current, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' }
+      });
+
+      autocompleteRef.current.addListener('place_changed', () => {
+        const place = autocompleteRef.current.getPlace();
+        if (place.formatted_address) {
+          setCheckoutForm(prev => ({ ...prev, address: place.formatted_address }));
+        }
+      });
+    }
+  }, [checkoutForm]);
 
   const handleCheckout = () => {
     if (cart.length === 0) return;
@@ -13,6 +33,11 @@ export default function Cart() {
 
   const submitOrder = async (e) => {
     e.preventDefault();
+    if (!captchaToken) {
+      alert('Please verify you are not a robot');
+      return;
+    }
+
     try {
       const res = await fetch('/api/orders', {
         method: 'POST',
@@ -20,14 +45,19 @@ export default function Cart() {
         body: JSON.stringify({
           ...checkoutForm,
           items: cart.map(i => ({ menuItem: i._id, name: i.name, quantity: i.qty, price: i.price })),
-          total: totalPrice
+          total: totalPrice,
+          captchaToken
         })
       });
       if (res.ok) {
         setOrderStatus('Order placed! Lola will start preparing your food.');
         clearCart();
         setCheckoutForm(null);
+        setCaptchaToken(null);
         setTimeout(() => { setOrderStatus(''); setIsOpen(false); }, 3000);
+      } else {
+        const data = await res.json();
+        setOrderStatus(data.error || 'Something went wrong. Please try again.');
       }
     } catch {
       setOrderStatus('Something went wrong. Please try again.');
@@ -56,17 +86,34 @@ export default function Cart() {
               <input type="tel" placeholder="Phone Number" value={checkoutForm.phone}
                 onChange={e => setCheckoutForm({ ...checkoutForm, phone: e.target.value })} />
               <select value={checkoutForm.orderType}
-                onChange={e => setCheckoutForm({ ...checkoutForm, orderType: e.target.value })}>
+                onChange={e => {
+                  setCheckoutForm({ ...checkoutForm, orderType: e.target.value });
+                  autocompleteRef.current = null; // Reset for next potential delivery selection
+                }}>
                 <option value="pickup">Pick-Up</option>
                 <option value="delivery">Delivery</option>
                 <option value="catering">Catering</option>
               </select>
               {checkoutForm.orderType === 'delivery' && (
-                <input type="text" placeholder="Delivery Address" value={checkoutForm.address}
-                  onChange={e => setCheckoutForm({ ...checkoutForm, address: e.target.value })} />
+                <input 
+                  ref={addressInputRef}
+                  type="text" 
+                  placeholder="Delivery Address" 
+                  required
+                  value={checkoutForm.address}
+                  onChange={e => setCheckoutForm({ ...checkoutForm, address: e.target.value })} 
+                />
               )}
               <textarea placeholder="Special instructions" rows="3" value={checkoutForm.notes}
                 onChange={e => setCheckoutForm({ ...checkoutForm, notes: e.target.value })} />
+              
+              <div style={{ margin: '15px 0', transform: 'scale(0.85)', transformOrigin: '0 0' }}>
+                <ReCAPTCHA
+                  sitekey="6LeIN6UsAAAAAEhMCahknmbAZPKtdT3JiqBuzOQU"
+                  onChange={(token) => setCaptchaToken(token)}
+                />
+              </div>
+
               <button type="submit" className="btn-primary" style={{ width: '100%' }}>PLACE ORDER — ${totalPrice.toFixed(2)}</button>
               <button type="button" className="btn-back" onClick={() => setCheckoutForm(null)}>Back to Cart</button>
             </form>
