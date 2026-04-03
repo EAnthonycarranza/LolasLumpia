@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function AboutSection() {
   return (
     <section className="about-section" id="story">
@@ -63,7 +65,7 @@ export default function AboutSection() {
           <div className="lola-text">
             <h2>MEET Lola - EMMA LONG</h2>
             <p>Emma Long has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren.</p>
-            <a href="#story" className="learn-more">Learn More</a>
+            <Link to="/our-story" className="learn-more">Learn More</Link>
           </div>
         </div>
       </div>

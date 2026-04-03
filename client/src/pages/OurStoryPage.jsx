@@ -18,7 +18,7 @@ export default function OurStoryPage() {
           </div>
           <div className="story-text">
             <h2>{settings?.aboutTitle || 'MEET Lola - EMMA LONG'}</h2>
-            <p>{settings?.aboutText || "Emma Long has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren."}</p>
+            <p>Emma Long has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren.</p>
             <p>What started as a family tradition has grown into a beloved local business. Every morning, Emma arrives at the kitchen before dawn, preparing the freshest ingredients for the day's lumpia. Her grandchildren now work alongside her, learning the techniques she perfected over decades.</p>
             <p>At Lola's Lumpia — named for Emma, the cherished 'Lola' (grandmother) of our family — we believe food is more than sustenance — it's a way to share love, culture, and tradition. Every bite of our lumpia carries the warmth of Filipino hospitality and the rich flavors of authentic home cooking.</p>
           </div>
