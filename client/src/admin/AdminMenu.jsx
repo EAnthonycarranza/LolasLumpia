@@ -78,11 +78,7 @@ export default function AdminMenu() {
               <textarea placeholder="Description" value={editingItem.description} onChange={e => setEditingItem({...editingItem, description: e.target.value})} required style={{ padding: '0.6rem', borderRadius: '6px', border: '1px solid #ddd' }} />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <input type="number" step="0.01" placeholder="Price" value={editingItem.price} onChange={e => setEditingItem({...editingItem, price: parseFloat(e.target.value)})} required style={{ padding: '0.6rem', borderRadius: '6px', border: '1px solid #ddd' }} />
-                <select value={editingItem.category} onChange={e => setEditingItem({...editingItem, category: e.target.value})} style={{ padding: '0.6rem', borderRadius: '6px', border: '1px solid #ddd' }}>
-                  <option value="lumpia">Lumpia</option>
-                  <option value="entree">Entree</option>
-                  <option value="dessert">Dessert</option>
-                </select>
+                <input type="text" value="Category: Lumpia" disabled style={{ padding: '0.6rem', borderRadius: '6px', border: '1px solid #ddd', background: '#f5f5f5' }} />
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <input type="text" placeholder="Emoji" value={editingItem.emoji} onChange={e => setEditingItem({...editingItem, emoji: e.target.value})} style={{ padding: '0.6rem', borderRadius: '6px', border: '1px solid #ddd' }} />

@@ -46,10 +46,6 @@ export default function MenuSection() {
       .catch(() => setLoading(false));
   }, []);
 
-  const lumpia = menuItems.filter(i => i.category === 'lumpia');
-  const entrees = menuItems.filter(i => i.category === 'entree');
-  const desserts = menuItems.filter(i => i.category === 'dessert');
-
   if (loading) {
     return (
       <section className="menu-section" id="menu">
@@ -60,22 +56,11 @@ export default function MenuSection() {
   }
 
   return (
-    <>
-      <section className="menu-section" id="menu">
-        <h2 className="section-title">OUR LUMPIA FAMILY</h2>
-        <div className="menu-grid">
-          {lumpia.map(item => <MenuCard key={item._id} item={item} />)}
-        </div>
-      </section>
-
-      {(entrees.length > 0 || desserts.length > 0) && (
-        <section className="more-food-section">
-          <h2 className="section-title">MORE FILIPINO FAVORITES</h2>
-          <div className="menu-grid">
-            {[...entrees, ...desserts].map(item => <MenuCard key={item._id} item={item} />)}
-          </div>
-        </section>
-      )}
-    </>
+    <section className="menu-section" id="menu">
+      <h2 className="section-title">OUR LUMPIA FAMILY</h2>
+      <div className="menu-grid">
+        {menuItems.map(item => <MenuCard key={item._id} item={item} />)}
+      </div>
+    </section>
   );
 }

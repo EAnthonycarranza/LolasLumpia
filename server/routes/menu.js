@@ -3,9 +3,7 @@ const MenuItem = require('../models/MenuItem');
 
 router.get('/', async (req, res) => {
   try {
-    const { category } = req.query;
-    const filter = category ? { category, available: true } : { available: true };
-    const items = await MenuItem.find(filter);
+    const items = await MenuItem.find({ available: true });
     res.json(items);
   } catch (err) {
     res.status(500).json({ error: err.message });
