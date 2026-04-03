@@ -1,12 +1,14 @@
 {
-   "name": "lolas-lumpia",
+  "name": "lolas-lumpia",
   "version": "1.0.0",
   "description": "Lola's Lumpia - Authentic Filipino Food MERN App",
   "scripts": {
+    "start": "node server/index.js",
     "server": "node server/index.js",
     "client": "cd client && npm run dev",
     "seed": "node server/seed.js",
-    "install-all": "npm install && cd client && npm install"
+    "install-all": "npm install && cd client && npm install",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
