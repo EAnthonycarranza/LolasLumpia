@@ -79,9 +79,10 @@ const sendContactEmails = async (contactData) => {
           <div style="${contentStyles}">
             <h2 style="color: #3a1e4d; font-family: 'Playfair Display', serif; margin-top: 0;">Hello ${name},</h2>
             <p style="font-size: 16px; line-height: 1.6;">Thank you for reaching out to us! We've received your message regarding "<strong>${subject}</strong>" and our team will get back to you as soon as possible.</p>
+            ${contactData.address ? `<p style="font-size: 16px; line-height: 1.6;"><strong>Address Provided:</strong> ${contactData.address}</p>` : ''}
             <p style="font-size: 16px; line-height: 1.6;">Lola's kitchen is busy, but we always make time for our family!</p>
             <div style="text-align: center;">
-              <a href="${APP_URL}/menu" style="${buttonStyles}">BROWSE OUR MENU</a>
+              <a href="${APP_URL}/menu" style="${buttonStyles}">WHILE YOU WAIT, BROWSE MENU</a>
             </div>
             <hr style="border: none; border-top: 1px solid #eae1d3; margin: 30px 0;">
             <p style="font-style: italic; color: #5d4e41; text-align: center; font-size: 14px;">"From Lola's Kitchen to Yours"</p>

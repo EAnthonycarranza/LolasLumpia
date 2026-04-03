@@ -1,6 +1,30 @@
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function OrderPage() {
+  const [address, setAddress] = useState('');
+  const addressInputRef = useRef(null);
+  const autocompleteRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (addressInputRef.current && !autocompleteRef.current) {
+      autocompleteRef.current = new window.google.maps.places.Autocomplete(addressInputRef.current, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' }
+      });
+
+      autocompleteRef.current.addListener('place_changed', () => {
+        const place = autocompleteRef.current.getPlace();
+        if (place.formatted_address) {
+          setAddress(place.formatted_address);
+          // Optional: redirect to menu or contact with address
+          // sessionStorage.setItem('userAddress', place.formatted_address);
+        }
+      });
+    }
+  }, []);
+
   return (
     <main className="page-content">
       <div className="page-hero page-hero-purple">
@@ -9,8 +33,35 @@ export default function OrderPage() {
       </div>
 
       <section className="order-page-section">
+        <div className="address-search-container" style={{ maxWidth: '600px', margin: '0 auto 50px', textAlign: 'center' }}>
+          <h3>Where are we delivering?</h3>
+          <p style={{ marginBottom: '15px', color: '#5d4e41' }}>Enter your address to check delivery availability</p>
+          <div className="contact-form-enhanced" style={{ padding: '20px' }}>
+            <input 
+              ref={addressInputRef}
+              type="text" 
+              placeholder="Enter your street address..." 
+              value={address}
+              onChange={e => setAddress(e.target.value)}
+              style={{ marginBottom: '15px' }}
+            />
+            <button 
+              className="btn-primary" 
+              style={{ width: '100%' }}
+              onClick={() => {
+                if (address) {
+                  sessionStorage.setItem('pendingAddress', address);
+                  navigate('/menu');
+                }
+              }}
+            >
+              CHECK AVAILABILITY & BROWSE MENU
+            </button>
+          </div>
+        </div>
+
         <div className="order-options">
-          <div className="order-option">
+...
             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#6b4c7a" strokeWidth="1.5">
               <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
             </svg>
