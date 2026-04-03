@@ -153,4 +153,105 @@ const sendNewsletterWelcome = async (email) => {
   await transporter.sendMail(mailOptions);
 };
 
-module.exports = { sendContactEmails, sendNewsletterWelcome };
+const sendOrderEmails = async (orderData) => {
+  const { customerName, email, phone, orderType, address, notes, items, total } = orderData;
+
+  const itemsHtml = items.map(item => `
+    <tr>
+      <td style="padding: 10px 0; border-bottom: 1px solid #eae1d3;">
+        <div style="font-weight: 700; color: #3a1e4d;">${item.name}</div>
+        <div style="font-size: 12px; color: #5d4e41;">Qty: ${item.quantity} × $${item.price.toFixed(2)}</div>
+      </td>
+      <td style="padding: 10px 0; border-bottom: 1px solid #eae1d3; text-align: right; font-weight: 700;">
+        $${(item.quantity * item.price).toFixed(2)}
+      </td>
+    </tr>
+  `).join('');
+
+  // Email to Customer
+  const userMailOptions = {
+    from: `"Lola's Lumpia" <${process.env.EMAIL_USER}>`,
+    to: email,
+    subject: 'Order Confirmation - Lola\'s Lumpia',
+    attachments: emailAttachments,
+    html: `
+      <div style="${commonStyles}">
+        <div style="max-width: 600px; margin: 0 auto;">
+          <div style="${headerStyles}">
+            ${logoHtml}
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; letter-spacing: 1px; color: #d4af37;">Order Received!</h1>
+          </div>
+          <div style="${contentStyles}">
+            <h2 style="color: #3a1e4d; font-family: 'Playfair Display', serif; margin-top: 0;">Salamat, ${customerName}!</h2>
+            <p style="font-size: 16px; line-height: 1.6;">Lola is excited to prepare your order! We've received your ${orderType} request and will have it ready for you soon.</p>
+            
+            <div style="background: #faf7f2; padding: 20px; border-radius: 12px; margin: 25px 0;">
+              <h3 style="margin-top: 0; color: #3a1e4d; font-size: 18px; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Order Summary</h3>
+              <table style="width: 100%; border-collapse: collapse;">
+                ${itemsHtml}
+                <tr>
+                  <td style="padding: 15px 0 0; font-size: 18px; font-weight: 800; color: #3a1e4d;">Total</td>
+                  <td style="padding: 15px 0 0; font-size: 18px; font-weight: 800; color: #3a1e4d; text-align: right;">$${total.toFixed(2)}</td>
+                </tr>
+              </table>
+            </div>
+
+            <div style="margin-bottom: 25px;">
+              <h4 style="margin-bottom: 5px; color: #3a1e4d;">Details:</h4>
+              <p style="margin: 0; font-size: 14px;"><strong>Method:</strong> ${orderType.toUpperCase()}</p>
+              ${address ? `<p style="margin: 5px 0 0; font-size: 14px;"><strong>Address:</strong> ${address}</p>` : ''}
+              ${notes ? `<p style="margin: 5px 0 0; font-size: 14px;"><strong>Notes:</strong> ${notes}</p>` : ''}
+            </div>
+
+            <p style="font-size: 14px; color: #5d4e41;">We'll contact you at ${phone} if we have any questions.</p>
+            
+            <hr style="border: none; border-top: 1px solid #eae1d3; margin: 30px 0;">
+            <p style="font-style: italic; color: #5d4e41; text-align: center; font-size: 14px;">"Authentic Filipino Lumpia, From Lola's Kitchen to Yours"</p>
+          </div>
+        </div>
+      </div>
+    `,
+  };
+
+  // Email to Admin
+  const adminMailOptions = {
+    from: `"New Order" <${process.env.EMAIL_USER}>`,
+    to: 'info@codingcarranza.com',
+    subject: `New ${orderType.toUpperCase()} Order from ${customerName}`,
+    attachments: emailAttachments,
+    html: `
+      <div style="${commonStyles}">
+        <div style="max-width: 600px; margin: 0 auto;">
+          <div style="${headerStyles}">
+            ${logoHtml}
+            <h1 style="margin: 0; font-size: 24px; color: #d4af37;">New Order Received</h1>
+          </div>
+          <div style="${contentStyles}">
+            <p><strong>Customer:</strong> ${customerName}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Type:</strong> ${orderType.toUpperCase()}</p>
+            ${address ? `<p><strong>Address:</strong> ${address}</p>` : ''}
+            
+            <div style="background: #faf7f2; padding: 20px; border-radius: 12px; margin-top: 20px;">
+              <h3 style="margin-top: 0;">Order Items</h3>
+              <table style="width: 100%; border-collapse: collapse;">
+                ${itemsHtml}
+                <tr>
+                  <td style="padding-top: 15px; font-weight: 800;">Total Revenue</td>
+                  <td style="padding-top: 15px; font-weight: 800; text-align: right;">$${total.toFixed(2)}</td>
+                </tr>
+              </table>
+            </div>
+            ${notes ? `<p style="margin-top: 20px;"><strong>Special Instructions:</strong><br>${notes}</p>` : ''}
+          </div>
+        </div>
+      </div>
+    `,
+  };
+
+  await transporter.sendMail(userMailOptions);
+  await transporter.sendMail(adminMailOptions);
+};
+
+module.exports = { sendContactEmails, sendNewsletterWelcome, sendOrderEmails };

@@ -1,9 +1,15 @@
 const router = require('express').Router();
 const Order = require('../models/Order');
+const { sendOrderEmails } = require('../utils/email');
 
 router.post('/', async (req, res) => {
   try {
-    const order = await Order.create(req.body);
+    const orderData = req.body;
+    const order = await Order.create(orderData);
+    
+    // Send emails
+    await sendOrderEmails(orderData).catch(err => console.error('Order email error:', err));
+    
     res.status(201).json(order);
   } catch (err) {
     res.status(400).json({ error: err.message });
