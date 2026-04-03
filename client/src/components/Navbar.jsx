@@ -35,18 +35,26 @@ export default function Navbar() {
           </svg>
           <span className="cart-count">{totalItems}</span>
         </button>
-        <button className="hamburger" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu">
+        <button className={`hamburger ${mobileOpen ? 'open' : ''}`} onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu">
           <span /><span /><span />
         </button>
       </nav>
 
-      {mobileOpen && (
-        <div className="mobile-nav active">
-          {navLinks.map(link => (
-            <Link key={link.to} to={link.to} onClick={() => setMobileOpen(false)}>{link.label}</Link>
+      <div className={`mobile-nav ${mobileOpen ? 'active' : ''}`}>
+        <div className="mobile-nav-content">
+          {navLinks.map((link, index) => (
+            <Link 
+              key={link.to} 
+              to={link.to} 
+              onClick={() => setMobileOpen(false)}
+              style={{ transitionDelay: `${index * 0.1}s` }}
+              className={location.pathname === link.to ? 'active' : ''}
+            >
+              {link.label}
+            </Link>
           ))}
         </div>
-      )}
+      </div>
     </>
   );
 }

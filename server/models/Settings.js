@@ -15,8 +15,8 @@ const settingsSchema = new mongoose.Schema({
       'Monday': 'Closed'
     }
   },
-  aboutTitle: { type: String, default: 'MEET LOLA ELENA' },
-  aboutText: { type: String, default: "Lola Elena has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren." },
+  aboutTitle: { type: String, default: 'MEET Lola - EMMA LONG' },
+  aboutText: { type: String, default: "Emma Long has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren. At Lola's Lumpia — named for Emma, the cherished 'Lola' (grandmother) of our family — we believe food is more than sustenance — it's a way to share love, culture, and tradition. Every bite of our lumpia carries the warmth of Filipino hospitality and the rich flavors of authentic home cooking." },
   heroHeading: { type: String, default: "AUTHENTIC FILIPINO LUMPIA,\nFROM LOLA'S KITCHEN TO YOURS." },
   socialFacebook: { type: String, default: '#' },
   socialInstagram: { type: String, default: '#' },

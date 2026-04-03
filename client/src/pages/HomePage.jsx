@@ -45,9 +45,8 @@ export default function HomePage() {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <img src="/images/logo.png" alt="Lola's Lumpia Logo" className="hero-logo" />
-          <h1>{settings?.heroHeading?.split('\n').map((line, i) => (
-            <span key={i}>{line}{i === 0 && <br />}</span>
-          )) || "AUTHENTIC FILIPINO LUMPIA, FROM LOLA'S KITCHEN TO YOURS."}</h1>
+          <h1>{settings?.heroHeading?.split('\n')[0] || "AUTHENTIC FILIPINO LUMPIA"}</h1>
+          <p className="hero-subtitle">{settings?.heroHeading?.split('\n')[1] || "From Lola's Kitchen to Yours"}</p>
           <Link to="/menu" className="btn-primary">BROWSE MENU</Link>
         </div>
       </header>
@@ -59,11 +58,11 @@ export default function HomePage() {
             {/* Meet Lola */}
             <div className={`meet-lola home-lola ${reviews.length === 0 ? 'full-width' : ''}`}>
               <div className="lola-image-wrapper">
-                <img src="/images/logo.png" alt="Lola Elena" className="lola-image" />
+                <img src="/images/logo.png" alt="Emma Long" className="lola-image" />
               </div>
               <div className="lola-text">
-                <h2>{settings?.aboutTitle || 'MEET LOLA ELENA'}</h2>
-                <p>{settings?.aboutText || "Lola Elena has been perfecting her family's lumpia recipe for over fifty years."}</p>
+                <h2>{settings?.aboutTitle || 'MEET Lola - EMMA LONG'}</h2>
+                <p>{settings?.aboutText || "Emma Long has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren."}</p>
                 <Link to="/our-story" className="learn-more">Learn More</Link>
               </div>
             </div>

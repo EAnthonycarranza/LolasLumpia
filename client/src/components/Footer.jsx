@@ -31,7 +31,10 @@ export default function Footer() {
           <form className="newsletter-form" onSubmit={handleSubscribe}>
             <input type="email" placeholder="Type your email" required value={email}
               onChange={e => setEmail(e.target.value)} />
-            <button type="submit" aria-label="Subscribe">&rarr;</button>
+            <button type="submit" aria-label="Subscribe">
+              <span className="btn-desktop-text">&rarr;</span>
+              <span className="btn-mobile-text">SUBSCRIBE</span>
+            </button>
           </form>
           {msg && <p className="newsletter-msg">{msg}</p>}
         </div>

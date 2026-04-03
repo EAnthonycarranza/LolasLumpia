@@ -2,17 +2,19 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Cart from './components/Cart';
+import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import OurStoryPage from './pages/OurStoryPage';
 import MenuPage from './pages/MenuPage';
 import OrderPage from './pages/OrderPage';
 import ContactPage from './pages/ContactPage';
-import AdminLogin from './admin/AdminLogin';
-import AdminDashboard from './admin/AdminDashboard';
+import AdminLogin from './admin/AdminLogin.jsx';
+import AdminDashboard from './admin/AdminDashboard.jsx';
 
 export default function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         {/* Admin routes - no navbar/footer */}
         <Route path="/admin/login" element={<AdminLogin />} />

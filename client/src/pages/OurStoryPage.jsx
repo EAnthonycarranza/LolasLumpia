@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useSettings } from '../context/SettingsContext';
 
 export default function OurStoryPage() {
@@ -13,13 +14,13 @@ export default function OurStoryPage() {
       <section className="story-content">
         <div className="story-main">
           <div className="story-image-wrapper">
-            <img src="/images/logo.png" alt="Lola Elena" className="story-image" />
+            <img src="/images/logo.png" alt="Emma Long" className="story-image" />
           </div>
           <div className="story-text">
-            <h2>{settings?.aboutTitle || 'MEET LOLA ELENA'}</h2>
-            <p>{settings?.aboutText || "Lola Elena has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren."}</p>
-            <p>What started as a family tradition has grown into a beloved local business. Every morning, Lola Elena arrives at the kitchen before dawn, preparing the freshest ingredients for the day's lumpia. Her grandchildren now work alongside her, learning the techniques she perfected over decades.</p>
-            <p>At Lola's Lumpia, we believe food is more than sustenance — it's a way to share love, culture, and tradition. Every bite of our lumpia carries the warmth of Filipino hospitality and the rich flavors of authentic home cooking.</p>
+            <h2>{settings?.aboutTitle || 'MEET Lola - EMMA LONG'}</h2>
+            <p>{settings?.aboutText || "Emma Long has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren."}</p>
+            <p>What started as a family tradition has grown into a beloved local business. Every morning, Emma arrives at the kitchen before dawn, preparing the freshest ingredients for the day's lumpia. Her grandchildren now work alongside her, learning the techniques she perfected over decades.</p>
+            <p>At Lola's Lumpia — named for Emma, the cherished 'Lola' (grandmother) of our family — we believe food is more than sustenance — it's a way to share love, culture, and tradition. Every bite of our lumpia carries the warmth of Filipino hospitality and the rich flavors of authentic home cooking.</p>
           </div>
         </div>
 
@@ -46,6 +47,15 @@ export default function OurStoryPage() {
             </svg>
             <h3>{settings?.location || 'San Antonio, TX'}</h3>
             <p>Proudly serving authentic Filipino food</p>
+          </div>
+        </div>
+
+        <div className="order-cta">
+          <h2>Ready to Order?</h2>
+          <p>Browse our full menu and add items to your cart, or contact us directly for custom orders and catering.</p>
+          <div className="order-cta-buttons">
+            <Link to="/menu" className="btn-primary">BROWSE MENU</Link>
+            <Link to="/contact" className="btn-secondary">CONTACT US</Link>
           </div>
         </div>
       </section>

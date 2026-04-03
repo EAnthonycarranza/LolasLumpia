@@ -58,11 +58,11 @@ export default function AboutSection() {
 
         <div className="meet-lola">
           <div className="lola-image-wrapper">
-            <img src="/images/logo.png" alt="Lola Elena" className="lola-image" />
+            <img src="/images/logo.png" alt="Emma Long" className="lola-image" />
           </div>
           <div className="lola-text">
-            <h2>MEET LOLA ELENA</h2>
-            <p>Lola Elena has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren.</p>
+            <h2>MEET Lola - EMMA LONG</h2>
+            <p>Emma Long has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren.</p>
             <a href="#story" className="learn-more">Learn More</a>
           </div>
         </div>
@@ -70,3 +70,4 @@ export default function AboutSection() {
     </section>
   );
 }
+

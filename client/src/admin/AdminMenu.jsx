@@ -69,7 +69,7 @@ export default function AdminMenu() {
 
       {editingItem && (
         <div style={{ 
-          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', z-index: 1000, padding: '1rem'
+          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem'
         }}>
           <form onSubmit={handleSave} style={{ background: '#fff', padding: '2rem', borderRadius: '12px', width: '100%', maxWidth: '500px' }}>
             <h3>{editingItem._id ? 'Edit Item' : 'New Item'}</h3>
