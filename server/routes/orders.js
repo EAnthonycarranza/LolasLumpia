@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
 
     // Verify reCAPTCHA
     const recaptchaRes = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=6LeIN6UsAAAAAFrackdk2_k4P4XB1TmqrwcXKYqY&response=${captchaToken}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY || '6LeIN6UsAAAAAFrackdk2_k4P4XB1TmqrwcXKYqY'}&response=${captchaToken}`
     );
 
     if (!recaptchaRes.data.success) {

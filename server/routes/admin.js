@@ -1,16 +1,28 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 const Admin = require('../models/Admin');
 const Order = require('../models/Order');
 const MenuItem = require('../models/MenuItem');
 const auth = require('../middleware/auth');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lolas-lumpia-secret-key-2024';
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY || '6LeIN6UsAAAAAFrackdk2_k4P4XB1TmqrwcXKYqY';
 
 // Login
 router.post('/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, captchaToken } = req.body;
+
+    // Verify reCAPTCHA
+    const recaptchaRes = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${captchaToken}`
+    );
+
+    if (!recaptchaRes.data.success) {
+      return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+    }
+
     const admin = await Admin.findOne({ username });
     if (!admin || !(await admin.comparePassword(password))) {
       return res.status(401).json({ error: 'Invalid credentials' });

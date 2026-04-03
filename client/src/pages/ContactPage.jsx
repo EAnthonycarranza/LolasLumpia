@@ -141,7 +141,7 @@ export default function ContactPage() {
 
                 <div style={{ margin: '15px 0', transform: 'scale(0.85)', transformOrigin: '0 0' }}>
                   <ReCAPTCHA
-                    sitekey="6LeIN6UsAAAAAEhMCahknmbAZPKtdT3JiqBuzOQU"
+                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIN6UsAAAAAEhMCahknmbAZPKtdT3JiqBuzOQU"}
                     onChange={(token) => setCaptchaToken(token)}
                   />
                 </div>

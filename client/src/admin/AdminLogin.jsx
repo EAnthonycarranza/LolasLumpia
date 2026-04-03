@@ -1,21 +1,28 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function AdminLogin() {
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const [captchaToken, setCaptchaToken] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!captchaToken) {
+      setError('Please verify you are not a robot');
+      return;
+    }
     setError('');
     try {
-      await login(form.username, form.password);
+      await login(form.username, form.password, captchaToken);
       navigate('/admin');
     } catch (err) {
       setError('Invalid username or password');
+      setCaptchaToken(null);
     }
   };
 
@@ -59,7 +66,15 @@ export default function AdminLogin() {
             onChange={e => setForm({ ...form, password: e.target.value })}
             style={{ padding: '0.8rem', borderRadius: '8px', border: '2px solid #9b7aad', outline: 'none' }}
           />
-          <button type="submit" className="btn-primary" style={{ marginTop: '1rem', width: '100%' }}>
+          
+          <div style={{ display: 'flex', justifyContent: 'center', transform: 'scale(0.85)', transformOrigin: 'center' }}>
+            <ReCAPTCHA
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIN6UsAAAAAEhMCahknmbAZPKtdT3JiqBuzOQU"}
+              onChange={(token) => setCaptchaToken(token)}
+            />
+          </div>
+
+          <button type="submit" className="btn-primary" style={{ marginTop: '0.5rem', width: '100%' }}>
             LOGIN
           </button>
         </form>

@@ -2,6 +2,9 @@
   "name": "lolas-lumpia",
   "version": "1.0.0",
   "description": "Lola's Lumpia - Authentic Filipino Food MERN App",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "start": "node server/index.js",
     "server": "node server/index.js",
@@ -11,6 +14,7 @@
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
+    "axios": "^1.7.7",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

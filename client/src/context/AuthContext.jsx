@@ -19,11 +19,11 @@ export function AuthProvider({ children }) {
     }
   }, [token]);
 
-  const login = async (username, password) => {
+  const login = async (username, password, captchaToken) => {
     const res = await fetch('/api/admin/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password, captchaToken })
     });
     if (!res.ok) throw new Error('Invalid credentials');
     const data = await res.json();

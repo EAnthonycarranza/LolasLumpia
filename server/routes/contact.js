@@ -3,13 +3,15 @@ const axios = require('axios');
 const Contact = require('../models/Contact');
 const { sendContactEmails } = require('../utils/email');
 
+const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY || '6LeIN6UsAAAAAFrackdk2_k4P4XB1TmqrwcXKYqY';
+
 router.post('/', async (req, res) => {
   try {
     const { captchaToken, ...contactData } = req.body;
 
     // Verify reCAPTCHA
     const recaptchaRes = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=6LeIN6UsAAAAAFrackdk2_k4P4XB1TmqrwcXKYqY&response=${captchaToken}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET_KEY}&response=${captchaToken}`
     );
 
     if (!recaptchaRes.data.success) {
