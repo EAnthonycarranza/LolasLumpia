@@ -10,6 +10,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const logoPath = path.resolve(__dirname, '../../client/public/images/logo.png');
+const APP_URL = 'https://lolas-lumpia-app-c8c541d5a2ee.herokuapp.com';
 
 const commonStyles = `
   background-color: #faf7f2;
@@ -35,6 +36,7 @@ const contentStyles = `
 
 const buttonStyles = `
   display: inline-block;
+  background: #d4af37;
   background: linear-gradient(135deg, #d4af37 0%, #f1d570 100%);
   color: #3a1e4d !important;
   padding: 14px 35px;
@@ -48,38 +50,38 @@ const buttonStyles = `
 
 const logoHtml = `
   <div style="margin-bottom: 20px;">
-    <img src="cid:logo" alt="Lola's Lumpia" style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+    <img src="cid:logo_img" alt="Lola's Lumpia" width="120" height="120" style="display: block; margin: 0 auto; border-radius: 50%; border: 4px solid #ffffff;">
   </div>
 `;
 
+const emailAttachments = [{
+  filename: 'logo.png',
+  path: logoPath,
+  cid: 'logo_img'
+}];
+
 const sendContactEmails = async (contactData) => {
   const { name, email, subject, message } = contactData;
-
-  const attachments = [{
-    filename: 'logo.png',
-    path: logoPath,
-    cid: 'logo'
-  }];
 
   // Email to User
   const userMailOptions = {
     from: `"Lola's Lumpia" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: 'We Received Your Message! - Lola\'s Lumpia',
-    attachments,
+    attachments: emailAttachments,
     html: `
       <div style="${commonStyles}">
         <div style="max-width: 600px; margin: 0 auto;">
           <div style="${headerStyles}">
             ${logoHtml}
-            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; letter-spacing: 1px;">Lola's Lumpia</h1>
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; letter-spacing: 1px; color: #d4af37;">Lola's Lumpia</h1>
           </div>
           <div style="${contentStyles}">
             <h2 style="color: #3a1e4d; font-family: 'Playfair Display', serif; margin-top: 0;">Hello ${name},</h2>
             <p style="font-size: 16px; line-height: 1.6;">Thank you for reaching out to us! We've received your message regarding "<strong>${subject}</strong>" and our team will get back to you as soon as possible.</p>
             <p style="font-size: 16px; line-height: 1.6;">Lola's kitchen is busy, but we always make time for our family!</p>
             <div style="text-align: center;">
-              <a href="https://lolas-lumpia-app-c8c541d5a2ee.herokuapp.com/menu" style="${buttonStyles}">WHILE YOU WAIT, BROWSE MENU</a>
+              <a href="${APP_URL}/menu" style="${buttonStyles}">BROWSE OUR MENU</a>
             </div>
             <hr style="border: none; border-top: 1px solid #eae1d3; margin: 30px 0;">
             <p style="font-style: italic; color: #5d4e41; text-align: center; font-size: 14px;">"From Lola's Kitchen to Yours"</p>
@@ -94,13 +96,13 @@ const sendContactEmails = async (contactData) => {
     from: `"Lola's Website" <${process.env.EMAIL_USER}>`,
     to: 'info@codingcarranza.com',
     subject: `New Contact Form: ${subject}`,
-    attachments,
+    attachments: emailAttachments,
     html: `
       <div style="${commonStyles}">
         <div style="max-width: 600px; margin: 0 auto;">
           <div style="${headerStyles}">
             ${logoHtml}
-            <h1 style="margin: 0; font-size: 24px;">New Inquiry</h1>
+            <h1 style="margin: 0; font-size: 24px; color: #d4af37;">New Inquiry</h1>
           </div>
           <div style="${contentStyles}">
             <p style="margin-bottom: 10px;"><strong>Name:</strong> ${name}</p>
@@ -125,24 +127,20 @@ const sendNewsletterWelcome = async (email) => {
     from: `"Lola's Lumpia" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: 'Welcome to the Family! 🥟',
-    attachments: [{
-      filename: 'logo.png',
-      path: logoPath,
-      cid: 'logo'
-    }],
+    attachments: emailAttachments,
     html: `
       <div style="${commonStyles}">
         <div style="max-width: 600px; margin: 0 auto;">
           <div style="${headerStyles}">
             ${logoHtml}
-            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; letter-spacing: 1px;">Lola's Lumpia</h1>
+            <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; letter-spacing: 1px; color: #d4af37;">Lola's Lumpia</h1>
           </div>
           <div style="${contentStyles}">
             <h2 style="color: #3a1e4d; font-family: 'Playfair Display', serif; margin-top: 0; text-align: center;">You're on the list!</h2>
             <p style="font-size: 16px; line-height: 1.6; text-align: center;">Thanks for joining our newsletter. You'll be the first to know about new flavors, special events, and Lola's secret tips.</p>
             <p style="font-size: 16px; line-height: 1.6; text-align: center; margin-top: 20px;">Ready to see what's cooking today?</p>
             <div style="text-align: center;">
-              <a href="https://lolas-lumpia-app-c8c541d5a2ee.herokuapp.com/menu" style="${buttonStyles}">EXPLORE OUR MENU</a>
+              <a href="${APP_URL}/menu" style="${buttonStyles}">EXPLORE OUR MENU</a>
             </div>
             <hr style="border: none; border-top: 1px solid #eae1d3; margin: 30px 0;">
             <p style="font-size: 12px; color: #5d4e41; text-align: center; letter-spacing: 1px;">LOLA'S LUMPIA • SAN ANTONIO, TX</p>
