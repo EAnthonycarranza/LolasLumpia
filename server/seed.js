@@ -8,10 +8,6 @@ const Admin = require('./models/Admin');
 const menuItems = [
   { name: 'Classic Pork Lumpia', description: 'Pork, garlic, carrots, secret spices.', price: 1.00, category: 'lumpia', emoji: '🥟', bgColor: '#d4a574' },
   { name: 'Chicken Pork Lumpia', description: 'Chicken, garlic, carrots, secret spices.', price: 3.00, category: 'lumpia', emoji: '🥟', bgColor: '#c49a6c' },
-  { name: 'Vegetable Lumpia', description: 'Vegetables, garlic, carrots, secret spices.', price: 3.00, category: 'lumpia', emoji: '🥬', bgColor: '#8faa6b' },
-  { name: "Lola's Creation", description: 'Special creation, garlic, carrots, secret spices.', price: 2.00, category: 'lumpia', emoji: '✨', bgColor: '#b89a7a', customizable: true },
-  { name: 'Banana Turon', description: 'Banana turon, brown sugar, jackfruit, crispy wrapper.', price: 3.00, category: 'lumpia', emoji: '🍌', bgColor: '#c4a050', customizable: true },
-  { name: 'Spicy Seafood Lumpia', description: 'Spicy seafood, garlic, carrots, secret spices.', price: 2.00, category: 'lumpia', emoji: '🌶️', bgColor: '#c47a5a' },
 ];
 
 async function seed() {
