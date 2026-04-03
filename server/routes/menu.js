@@ -3,7 +3,8 @@ const MenuItem = require('../models/MenuItem');
 
 router.get('/', async (req, res) => {
   try {
-    const items = await MenuItem.find({ available: true });
+    // Only return items that are available AND in the lumpia category
+    const items = await MenuItem.find({ category: 'lumpia', available: true });
     res.json(items);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -13,7 +14,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const item = await MenuItem.findById(req.params.id);
-    if (!item) return res.status(404).json({ error: 'Item not found' });
+    if (!item || item.category !== 'lumpia') {
+      return res.status(404).json({ error: 'Item not found' });
+    }
     res.json(item);
   } catch (err) {
     res.status(500).json({ error: err.message });
