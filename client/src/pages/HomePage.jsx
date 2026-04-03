@@ -62,7 +62,7 @@ export default function HomePage() {
               </div>
               <div className="lola-text">
                 <h2>{settings?.aboutTitle || 'MEET Lola - EMMA LONG'}</h2>
-                <p>{settings?.aboutText || "Emma Long has been perfecting her family's lumpia recipe for over fifty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren."}</p>
+                <p>{settings?.aboutText || "Emma Long has been perfecting her family's lumpia recipe for over thirty years. Her secret is patience and the freshest local ingredients. Every lumpia is hand-rolled and cooked with the same love she has for her grandchildren."}</p>
                 <Link to="/our-story" className="learn-more">Learn More</Link>
               </div>
             </div>
