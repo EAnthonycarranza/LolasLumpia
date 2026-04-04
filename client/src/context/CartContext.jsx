@@ -6,24 +6,25 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const addToCart = (item) => {
+  const addToCart = (item, selectedFlavor) => {
     setCart(prev => {
-      const existing = prev.find(i => i._id === item._id);
+      // Create a unique key for the item based on ID and selected flavor
+      const existing = prev.find(i => i._id === item._id && i.selectedFlavor === selectedFlavor);
       if (existing) {
-        return prev.map(i => i._id === item._id ? { ...i, qty: i.qty + 1 } : i);
+        return prev.map(i => (i._id === item._id && i.selectedFlavor === selectedFlavor) ? { ...i, qty: i.qty + 1 } : i);
       }
-      return [...prev, { ...item, qty: 1 }];
+      return [...prev, { ...item, selectedFlavor, qty: 1 }];
     });
     setIsOpen(true);
   };
 
-  const removeFromCart = (id) => {
-    setCart(prev => prev.filter(i => i._id !== id));
+  const removeFromCart = (id, selectedFlavor) => {
+    setCart(prev => prev.filter(i => !(i._id === id && i.selectedFlavor === selectedFlavor)));
   };
 
-  const changeQty = (id, delta) => {
+  const changeQty = (id, selectedFlavor, delta) => {
     setCart(prev => prev.map(i => {
-      if (i._id !== id) return i;
+      if (!(i._id === id && i.selectedFlavor === selectedFlavor)) return i;
       const newQty = i.qty + delta;
       return newQty <= 0 ? null : { ...i, qty: newQty };
     }).filter(Boolean));

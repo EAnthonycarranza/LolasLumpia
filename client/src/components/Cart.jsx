@@ -119,16 +119,17 @@ export default function Cart() {
             </form>
           ) : (
             cart.map(item => (
-              <div key={item._id} className="cart-item">
+              <div key={`${item._id}-${item.selectedFlavor}`} className="cart-item">
                 <div className="cart-item-info">
                   <h4>{item.name}</h4>
+                  <p style={{ fontSize: '0.8rem', color: '#6b4c7a', fontWeight: 'bold' }}>Flavor: {item.selectedFlavor}</p>
                   <p>${item.price.toFixed(2)} each</p>
                 </div>
                 <div className="cart-item-actions">
-                  <button className="qty-btn" onClick={() => changeQty(item._id, -1)}>-</button>
+                  <button className="qty-btn" onClick={() => changeQty(item._id, item.selectedFlavor, -1)}>-</button>
                   <span className="cart-item-qty">{item.qty}</span>
-                  <button className="qty-btn" onClick={() => changeQty(item._id, 1)}>+</button>
-                  <button className="cart-item-remove" onClick={() => removeFromCart(item._id)}>&times;</button>
+                  <button className="qty-btn" onClick={() => changeQty(item._id, item.selectedFlavor, 1)}>+</button>
+                  <button className="cart-item-remove" onClick={() => removeFromCart(item._id, item.selectedFlavor)}>&times;</button>
                 </div>
               </div>
             ))

@@ -6,8 +6,38 @@ const Settings = require('./models/Settings');
 const Admin = require('./models/Admin');
 
 const menuItems = [
-  { name: 'Classic Pork Lumpia', description: 'Pork, garlic, carrots, secret spices.', price: 1.00, category: 'lumpia', emoji: '🥟', bgColor: '#d4a574' },
-  { name: 'Chicken Pork Lumpia', description: 'Chicken, garlic, carrots, secret spices.', price: 3.00, category: 'lumpia', emoji: '🥟', bgColor: '#c49a6c' },
+  { 
+    name: 'Appetizer Order', 
+    description: '5 to 6 pieces. Perfect for individual diners or small tables.', 
+    price: 7.50, 
+    category: 'lumpia', 
+    emoji: '🥟', 
+    bgColor: '#d4a574' 
+  },
+  { 
+    name: 'Small Party Tray', 
+    description: '25 pieces. Ideal for small family gatherings and potlucks.', 
+    price: 30.00, 
+    category: 'lumpia', 
+    emoji: '🍱', 
+    bgColor: '#c49a6c' 
+  },
+  { 
+    name: 'Large Party Tray', 
+    description: '50 pieces. Great for parties, catering events, and holidays.', 
+    price: 55.00, 
+    category: 'lumpia', 
+    emoji: '🎉', 
+    bgColor: '#b89a7a' 
+  },
+  { 
+    name: 'Event Tray', 
+    description: '100 pieces. Best for large-scale catering.', 
+    price: 95.00, 
+    category: 'lumpia', 
+    emoji: '🏢', 
+    bgColor: '#a08a70' 
+  },
 ];
 
 async function seed() {

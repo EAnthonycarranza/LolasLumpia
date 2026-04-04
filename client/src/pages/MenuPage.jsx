@@ -4,7 +4,13 @@ import { useCart } from '../context/CartContext';
 function MenuCard({ item }) {
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
-  const handleAdd = () => { addToCart(item); setAdded(true); setTimeout(() => setAdded(false), 800); };
+  const [selectedFlavor, setSelectedFlavor] = useState('Pork');
+
+  const handleAdd = () => { 
+    addToCart(item, selectedFlavor); 
+    setAdded(true); 
+    setTimeout(() => setAdded(false), 800); 
+  };
 
   return (
     <div className="menu-card">
@@ -15,6 +21,21 @@ function MenuCard({ item }) {
         <div className="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <h3>{item.name}</h3>
         <p>{item.description}</p>
+        
+        <div className="flavor-selection" style={{ margin: '10px 0' }}>
+          <label style={{ fontSize: '0.8rem', fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Choose Flavor:</label>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <label style={{ fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <input type="radio" name={`flavor-${item._id}`} value="Pork" checked={selectedFlavor === 'Pork'} onChange={() => setSelectedFlavor('Pork')} />
+              Pork
+            </label>
+            <label style={{ fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <input type="radio" name={`flavor-${item._id}`} value="Chicken" checked={selectedFlavor === 'Chicken'} onChange={() => setSelectedFlavor('Chicken')} />
+              Chicken
+            </label>
+          </div>
+        </div>
+
         <div className="price-row">
           <span className="price">${item.price.toFixed(2)}</span>
           {item.customizable && <span className="customize-link">Customize</span>}
