@@ -19,19 +19,34 @@ function MenuCard({ item }) {
       </div>
       <div className="menu-card-info">
         <div className="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        
+        <div className="menu-step-tag">Step 1: Choose Size</div>
         <h3>{item.name}</h3>
         <p>{item.description}</p>
 
-        <div className="flavor-selection" style={{ margin: '10px 0' }}>
-          <label style={{ fontSize: '0.8rem', fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>Choose Flavor:</label>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <label style={{ fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <input type="radio" name={`flavor-home-${item._id}`} value="Pork" checked={selectedFlavor === 'Pork'} onChange={() => setSelectedFlavor('Pork')} />
-              Pork
+        <div className="flavor-selection">
+          <span className="menu-step-tag">Step 2: Choose Flavor</span>
+          <label className="flavor-label">Lumpia Kind:</label>
+          <div className="flavor-options">
+            <label className="flavor-option">
+              <input 
+                type="radio" 
+                name={`flavor-home-${item._id}`} 
+                value="Pork" 
+                checked={selectedFlavor === 'Pork'} 
+                onChange={() => setSelectedFlavor('Pork')} 
+              />
+              <div className="flavor-card">Classic Pork</div>
             </label>
-            <label style={{ fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <input type="radio" name={`flavor-home-${item._id}`} value="Chicken" checked={selectedFlavor === 'Chicken'} onChange={() => setSelectedFlavor('Chicken')} />
-              Chicken
+            <label className="flavor-option">
+              <input 
+                type="radio" 
+                name={`flavor-home-${item._id}`} 
+                value="Chicken" 
+                checked={selectedFlavor === 'Chicken'} 
+                onChange={() => setSelectedFlavor('Chicken')} 
+              />
+              <div className="flavor-card">Savory Chicken</div>
             </label>
           </div>
         </div>
@@ -44,7 +59,7 @@ function MenuCard({ item }) {
           className={`btn-add-cart ${added ? 'added' : ''}`}
           onClick={handleAdd}
         >
-          {added ? '✓ ADDED!' : '🛒 ADD TO CART'}
+          {added ? '✓ ADDED TO TRAY!' : '🛒 ADD TO CART'}
         </button>
       </div>
     </div>

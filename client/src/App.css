@@ -2043,3 +2043,87 @@ h1, h2, h3, h4, h5, h6 {
     gap: 0;
   }
 }
+
+/* ===== Enhanced Flavor Selection ===== */
+.flavor-selection {
+  margin: 1.2rem 0;
+  padding: 1rem;
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--cream-dark);
+}
+
+.flavor-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--purple-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.flavor-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.flavor-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.flavor-option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.flavor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem;
+  background: var(--white);
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.flavor-option:hover .flavor-card {
+  border-color: var(--purple-light);
+  transform: translateY(-2px);
+}
+
+.flavor-option input:checked + .flavor-card {
+  background: var(--purple-dark);
+  border-color: var(--purple-dark);
+  color: var(--white);
+  box-shadow: 0 4px 10px rgba(58, 30, 77, 0.2);
+}
+
+/* Menu Card Step styling */
+.menu-step-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 900;
+  background: var(--gold);
+  color: var(--purple-dark);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.tray-size-info {
+  font-weight: 800;
+  color: var(--purple-dark);
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
