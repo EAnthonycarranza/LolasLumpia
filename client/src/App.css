@@ -2177,3 +2177,68 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1rem;
   }
 }
+
+/* ===== Error Animations & Popups ===== */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+}
+
+.shake {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.error-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: rgba(185, 28, 28, 0.98);
+  color: white;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  z-index: 50;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  border: 2px solid #ef4444;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 85%;
+  pointer-events: none;
+}
+
+.error-popup.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.error-popup-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.error-popup h4 {
+  color: white;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+
+.error-popup p {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+  color: rgba(255,255,255,0.95);
+  line-height: 1.4;
+}

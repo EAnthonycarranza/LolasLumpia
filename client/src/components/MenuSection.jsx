@@ -4,16 +4,30 @@ import { useCart } from '../context/CartContext';
 function MenuCard({ item }) {
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
-  const [selectedFlavor, setSelectedFlavor] = useState('Pork');
+  const [selectedFlavor, setSelectedFlavor] = useState('');
+  const [shaking, setShaking] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   const handleAdd = () => {
+    if (!selectedFlavor) {
+      setShaking(true);
+      setShowError(true);
+      setTimeout(() => setShaking(false), 400);
+      setTimeout(() => setShowError(false), 2500);
+      return;
+    }
     addToCart(item, selectedFlavor);
     setAdded(true);
     setTimeout(() => setAdded(false), 800);
   };
 
   return (
-    <div className="menu-card">
+    <div className={`menu-card ${shaking ? 'shake' : ''}`}>
+      <div className={`error-popup ${showError ? 'active' : ''}`}>
+        <span className="error-popup-icon">⚠️</span>
+        <h4>Selection Needed!</h4>
+        <p>Please select a Lumpia Kind (flavor) before adding to tray.</p>
+      </div>
       <div className="menu-card-image" style={{ backgroundColor: item.bgColor }}>
         <div className="food-emoji">{item.emoji}</div>
       </div>
