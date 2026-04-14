@@ -59,6 +59,9 @@ export default function Footer() {
       </div>
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} {settings?.businessName || "Lola's Lumpia"}. Authentic Taste.</p>
+        <p className="footer-credit" style={{ marginTop: '0.5rem', fontSize: '0.8rem', opacity: 0.8 }}>
+          Website created by <a href="https://www.codingcarranza.com" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>Coding Carranza</a>
+        </p>
       </div>
     </footer>
   );

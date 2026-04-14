@@ -11,13 +11,16 @@ export default function Navbar() {
     { to: '/', label: 'HOME' },
     { to: '/our-story', label: 'OUR STORY' },
     { to: '/menu', label: 'MENU' },
-    { to: '/order', label: 'ORDER' },
     { to: '/contact', label: 'CONTACT' },
   ];
 
   return (
     <>
       <nav className="main-nav">
+        <Link to="/" className="nav-brand">
+          <img src="/images/logo.png" alt="Lola's Lumpia Logo" className="nav-logo" />
+          <span className="brand-text">Lola's Lumpia</span>
+        </Link>
         <div className="nav-links">
           {navLinks.map((link, i) => (
             <span key={link.to}>

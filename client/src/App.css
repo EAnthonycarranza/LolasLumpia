@@ -84,25 +84,57 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== Navigation ===== */
 .main-nav {
-  background: rgba(58, 30, 77, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(58, 30, 77, 0.98);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 1.2rem var(--spacing-md);
+  padding: 0.8rem 5rem 0.8rem 2rem;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 20px var(--shadow-md);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   transition: all var(--transition-normal);
   min-height: 80px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  transition: transform var(--transition-fast);
+}
+
+.nav-brand:hover {
+  transform: scale(1.02);
+}
+
+.nav-logo {
+  height: 55px;
+  width: 55px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  background: var(--white);
+}
+
+.brand-text {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold);
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 0.5rem;
 }
 
 .nav-links a {
@@ -715,74 +747,123 @@ h1, h2, h3, h4, h5, h6 {
 
 .menu-card {
   background: var(--white);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 8px 20px var(--shadow-sm);
+  box-shadow: 0 10px 25px rgba(58, 30, 77, 0.08);
   border: 1px solid var(--cream-dark);
-  transition: all var(--transition-normal);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .menu-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 30px var(--shadow-md);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(58, 30, 77, 0.15);
   border-color: var(--purple-light);
 }
 
 .menu-card-image {
-  height: 180px;
-  background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+  height: 200px;
+  background: linear-gradient(145deg, var(--cream) 0%, var(--cream-dark) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid var(--cream-dark);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-card-image::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .food-emoji {
-  font-size: 5rem;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-  transition: transform var(--transition-normal);
+  font-size: 5.5rem;
+  filter: drop-shadow(0 8px 15px rgba(0,0,0,0.1));
+  transition: all 0.5s var(--transition-bounce);
+  z-index: 1;
 }
 
 .menu-card:hover .food-emoji {
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.15) rotate(8deg);
 }
 
 .menu-card-info {
-  padding: var(--spacing-md);
+  padding: 1.5rem;
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 0.8rem;
+}
+
+.stars {
+  color: var(--gold);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.2rem;
 }
 
 .menu-card-info h3 {
-  font-size: 1.2rem;
-  margin-bottom: var(--spacing-xs);
+  font-size: 1.4rem;
+  margin: 0;
   font-family: 'Playfair Display', serif;
   color: var(--purple-dark);
+  font-weight: 900;
+  line-height: 1.2;
 }
 
 .menu-card-info p {
-  font-size: 0.9rem;
-  color: var(--text-light);
-  margin-bottom: var(--spacing-sm);
+  font-size: 0.95rem;
+  color: #6b5a4a;
+  line-height: 1.5;
+  margin: 0;
   flex: 1;
+}
+
+/* Flavor Badge Styling */
+.flavor-badge-container {
+  margin: 0.5rem 0;
+  display: flex;
+}
+
+.flavor-badge {
+  background: rgba(107, 76, 122, 0.08);
+  color: var(--purple-dark);
+  padding: 0.4rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(107, 76, 122, 0.15);
+}
+
+.flavor-badge::before {
+  content: '✦';
+  margin-right: 6px;
+  font-size: 0.9rem;
 }
 
 .price-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--spacing-sm);
-  padding-top: var(--spacing-xs);
-  border-top: 1px dashed var(--cream-dark);
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--cream-dark);
 }
 
 .price {
   font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 900;
   color: var(--purple-dark);
 }
 
@@ -1717,7 +1798,17 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 640px) {
   .main-nav {
     min-height: 70px;
-    padding: 0.8rem var(--spacing-md);
+    padding: 0.8rem 1rem;
+    justify-content: flex-start;
+  }
+
+  .nav-logo {
+    height: 40px;
+    width: 40px;
+  }
+
+  .brand-text {
+    font-size: 1.1rem;
   }
 
   .nav-links {
@@ -2044,69 +2135,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* ===== Enhanced Flavor Selection ===== */
-.flavor-selection {
-  margin: 1.2rem 0;
-  padding: 1rem;
-  background: var(--cream);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--cream-dark);
-}
-
-.flavor-label {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: var(--purple-dark);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.8rem;
-  display: block;
-}
-
-.flavor-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
-}
-
-.flavor-option {
-  position: relative;
-  cursor: pointer;
-}
-
-.flavor-option input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.flavor-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.6rem;
-  background: var(--white);
-  border: 2px solid var(--cream-dark);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
-  text-align: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--text-light);
-}
-
-.flavor-option:hover .flavor-card {
-  border-color: var(--purple-light);
-  transform: translateY(-2px);
-}
-
-.flavor-option input:checked + .flavor-card {
-  background: var(--purple-dark);
-  border-color: var(--purple-dark);
-  color: var(--white);
-  box-shadow: 0 4px 10px rgba(58, 30, 77, 0.2);
-}
+/* ===== DEPRECATED: Flavor Selection (Replaced by Flavor Badge) ===== */
+/* Styles removed to prevent conflicts and reduce bundle size */
 
 /* ===== Menu Page Mobile Enhancements ===== */
 @media (max-width: 768px) {
@@ -2137,15 +2167,6 @@ h1, h2, h3, h4, h5, h6 {
   .food-emoji {
     font-size: 4rem;
   }
-
-  .flavor-options {
-    gap: 0.5rem;
-  }
-
-  .flavor-card {
-    padding: 0.5rem;
-    font-size: 0.8rem;
-  }
 }
 
 /* Card Content Spacing Optimization */
@@ -2156,10 +2177,6 @@ h1, h2, h3, h4, h5, h6 {
 .menu-card-info h3 {
   margin-top: 0.2rem;
   line-height: 1.3;
-}
-
-.flavor-selection {
-  margin: 0.8rem 0;
 }
 
 /* Page Hero Mobile Polish */

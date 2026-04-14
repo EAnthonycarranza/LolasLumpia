@@ -11,6 +11,7 @@ const menuItems = [
     description: '5 to 6 pieces. Perfect for individual diners or small tables.', 
     price: 7.50, 
     category: 'lumpia', 
+    flavor: 'Pork',
     emoji: '🥟', 
     bgColor: '#d4a574' 
   },
@@ -19,6 +20,7 @@ const menuItems = [
     description: '25 pieces. Ideal for small family gatherings and potlucks.', 
     price: 30.00, 
     category: 'lumpia', 
+    flavor: 'Pork',
     emoji: '🍱', 
     bgColor: '#c49a6c' 
   },
@@ -27,6 +29,7 @@ const menuItems = [
     description: '50 pieces. Great for parties, catering events, and holidays.', 
     price: 55.00, 
     category: 'lumpia', 
+    flavor: 'Pork',
     emoji: '🎉', 
     bgColor: '#b89a7a' 
   },
@@ -35,6 +38,7 @@ const menuItems = [
     description: '100 pieces. Best for large-scale catering.', 
     price: 95.00, 
     category: 'lumpia', 
+    flavor: 'Pork',
     emoji: '🏢', 
     bgColor: '#a08a70' 
   },

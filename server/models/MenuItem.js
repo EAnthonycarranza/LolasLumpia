@@ -7,6 +7,7 @@ const menuItemSchema = new mongoose.Schema({
   category: { type: String, required: true, enum: ['lumpia'], default: 'lumpia' },
   emoji: { type: String, default: '🥟' },
   bgColor: { type: String, default: '#d4a574' },
+  flavor: { type: String, default: 'Pork' },
   rating: { type: Number, default: 5 },
   customizable: { type: Boolean, default: false },
   available: { type: Boolean, default: true }
